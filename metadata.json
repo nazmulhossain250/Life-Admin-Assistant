@@ -1,0 +1,7 @@
+{
+  "name": "Life Admin Assistant",
+  "description": "Simplifies complex documents like legal letters or medical results into 5th-grade level language, highlights deadlines, and generates action checklists.",
+  "requestFramePermissions": [
+    "camera"
+  ]
+}
