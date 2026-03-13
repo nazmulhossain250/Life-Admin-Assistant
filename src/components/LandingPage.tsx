@@ -19,9 +19,7 @@ export function LandingPage({ darkMode, toggleDarkMode, setShowApp, showInfo, se
 
       <nav className="relative z-10 max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <div className="w-10 h-10 bg-emerald-600 rounded-xl flex items-center justify-center text-white shadow-lg shadow-emerald-500/20">
-            <Sparkles size={20} />
-          </div>
+          <img src="/favicon.png" alt="Life Admin Logo" className="w-10 h-10 rounded-xl object-contain shadow-lg shadow-emerald-500/20" />
           <span className="font-display font-bold text-2xl tracking-tight text-stone-900 dark:text-white">Life Admin</span>
         </div>
         <button 

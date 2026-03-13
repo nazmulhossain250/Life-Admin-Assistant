@@ -37,19 +37,30 @@ export const generatePDFBlob = async (result: AnalysisResult): Promise<Blob | nu
     pdf.setFont('helvetica', 'bold');
     pdf.text('Life Admin', margin + 15, 25);
     
-    // Clean Sparkle Logo Shape (4-pointed star)
-    pdf.setFillColor(255, 255, 255);
-    const cx = margin + 5;
-    const cy = 20;
-    const s = 6; // size
-    // Vertical component
-    pdf.triangle(cx, cy - s, cx - s/2.5, cy, cx + s/2.5, cy, 'F');
-    pdf.triangle(cx, cy + s, cx - s/2.5, cy, cx + s/2.5, cy, 'F');
-    // Horizontal component
-    pdf.triangle(cx - s, cy, cx, cy - s/2.5, cx, cy + s/2.5, 'F');
-    pdf.triangle(cx + s, cy, cx, cy - s/2.5, cx, cy + s/2.5, 'F');
-    // Center dot for smoothness
-    pdf.circle(cx, cy, s/4, 'F');
+    // Custom LA Logo
+    try {
+      const img = new Image();
+      img.src = '/favicon.png';
+      
+      // Wait for image to load before drawing
+      await new Promise((resolve) => {
+        img.onload = resolve;
+        img.onerror = resolve; // Continue even if image fails
+      });
+      
+      // Create canvas to get base64
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      if (ctx) {
+        ctx.drawImage(img, 0, 0);
+        const dataUrl = canvas.toDataURL('image/png');
+        pdf.addImage(dataUrl, 'PNG', margin, 15, 12, 12);
+      }
+    } catch (e) {
+      console.warn("Failed to load LA logo for PDF, continuing without it.", e);
+    }
     
     pdf.setFontSize(12);
     pdf.setFont('helvetica', 'normal');
